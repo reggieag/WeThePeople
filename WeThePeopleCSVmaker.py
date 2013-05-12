@@ -9,7 +9,6 @@ class Petition:
 		self.id = decoder['results'][0]['id']
 		self.name = decoder['results'][0]['title']
 		self.sig_total = decoder['results'][0]['signatureCount']
-		#self.petition_loader = json.load(urllib2.urlopen('https://api.whitehouse.gov/v1/petitions/'+self.id+'/signatures.json?'))
 		self.petition_signatures = []
 		
 	def loader(self, petition_id):
@@ -55,7 +54,7 @@ class Petition:
 				except (UnicodeEncodeError, UnicodeDecodeError):
 					encoded_row = dict((k, v.encode('utf-8')) for (k, v) in row.items())
 					petitionwriter.writerow(encoded_row)
-			#petitionwriter.writerows(self.petition_signatures) 
+
 
 	def petition_info(self):
 		'''
