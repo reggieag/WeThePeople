@@ -49,7 +49,13 @@ class Petition:
 		with open(str(output)+'.csv','wb') as f:
 			petitionwriter = csv.DictWriter(f,petition_fieldnames)
 			petitionwriter.writer.writerow(petitionheader)
-			petitionwriter.writerows(self.petition_signatures) 
+			for row in self.petition_signatures:
+				try:
+					petitionwriter.writerow(row)
+				except (UnicodeEncodeError, UnicodeDecodeError):
+					encoded_row = dict((k, v.encode('utf-8')) for (k, v) in row.items())
+					petitionwriter.writerow(encoded_row)
+			#petitionwriter.writerows(self.petition_signatures) 
 
 	def petition_info(self):
 		'''
